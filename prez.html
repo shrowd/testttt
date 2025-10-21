@@ -3,20 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Obróć ekran i fullscreen</title>
+<title>Fullscreen i obrót</title>
 <style>
   body {
     margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    transition: transform 0.5s ease;
-  }
-
-  .rotated {
-    transform: rotate(90deg);
+    font-family: sans-serif;
   }
 
   button {
@@ -32,17 +27,23 @@
 
 <script>
 const button = document.getElementById('rotateFullscreenBtn');
-button.addEventListener('click', async () => {
-    // Obrót ekranu
-    document.body.classList.toggle('rotated');
 
-    // Tryb fullscreen
-    if (!document.fullscreenElement) {
+button.addEventListener('click', async () => {
+    // Wejdź w tryb fullscreen
+    if (document.body.requestFullscreen) {
+        await document.body.requestFullscreen();
+    }
+
+    // Spróbuj zablokować orientację na poziomą (landscape)
+    if (screen.orientation && screen.orientation.lock) {
         try {
-            await document.documentElement.requestFullscreen();
+            await screen.orientation.lock('landscape');
+            console.log('Ekran obrócony do landscape!');
         } catch (err) {
-            console.error(`Błąd fullscreen: ${err.message}`);
+            console.error('Nie udało się zablokować orientacji:', err);
         }
+    } else {
+        alert('Twoja przeglądarka nie wspiera blokady orientacji.');
     }
 });
 </script>
