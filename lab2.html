@@ -12,7 +12,7 @@
   <script>
     function fun() {
       const text = document.getElementById("text");
-
+       const gyro = document.getElementById("gyro"); 
       navigator.geolocation.getCurrentPosition(
         (pozycja) => {
           const latitude = pozycja.coords.latitude;
