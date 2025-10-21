@@ -7,6 +7,7 @@
 <body onload="fun()">
   <h1>Współrzędne</h1>
   <p id="text"></p>
+  <p id="gyro"></p>
 
   <script>
     function fun() {
@@ -20,6 +21,22 @@
           text.textContent = "Szerokość: " + latitude + ", Długość: " + longitude;
         },
       );
+
+      if ('Gyroscope' in window) {
+        try {
+          const gyroscope = new Gyroscope({ frequency: 60 }); // 60 Hz
+          
+          gyroscope.addEventListener('reading', () => {
+            gyro.textContent = `Gyroscope - X: ${gyroscope.x.toFixed(2)}, Y: ${gyroscope.y.toFixed(2)}, Z: ${gyroscope.z.toFixed(2)}`;
+          });
+
+          gyroscope.start();
+        } catch (error) {
+          gyro.textContent = "Błąd przy inicjalizacji gyroskopu: " + error.message;
+        }
+      } else {
+        gyro.textContent = "Twoje urządzenie nie obsługuje Gyroscope API.";
+      }
     }
   </script>
 </body>
