@@ -9,36 +9,34 @@
   <p id="text"></p>
   <p id="gyro"></p>
 
-  <script>
-    function fun() {
-      const text = document.getElementById("text");
-       const gyro = document.getElementById("gyro"); 
-      navigator.geolocation.getCurrentPosition(
-        (pozycja) => {
-          const latitude = pozycja.coords.latitude;
-          const longitude = pozycja.coords.longitude;
 
-          text.textContent = "Szerokość: " + latitude + ", Długość: " + longitude;
-        },
-      );
+      <script>
+function fun() {
+  const text = document.getElementById("text");
+  const gyro = document.getElementById("gyro");
 
-      if ('Gyroscope' in window) {
-        try {
-          const gyroscope = new Gyroscope({ frequency: 60 }); // 60 Hz
-          
-          gyroscope.addEventListener('reading', () => {
-            gyro.textContent = `Gyroscope - X: ${gyroscope.x.toFixed(2)}, Y: ${gyroscope.y.toFixed(2)}, Z: ${gyroscope.z.toFixed(2)}`;
-          });
-
-          gyroscope.start();
-        } catch (error) {
-          gyro.textContent = "Błąd przy inicjalizacji gyroskopu: " + error.message;
-        }
-      } else {
-        gyro.textContent = "Twoje urządzenie nie obsługuje Gyroscope API.";
-      }
+  // Geolokalizacja
+  navigator.geolocation.getCurrentPosition(
+    (pozycja) => {
+      const latitude = pozycja.coords.latitude;
+      const longitude = pozycja.coords.longitude;
+      text.textContent = "Szerokość: " + latitude + ", Długość: " + longitude;
+    },
+    (err) => {
+      text.textContent = "Błąd geolokalizacji: " + err.message;
     }
-  </script>
+  );
+
+  // DeviceOrientation
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (event) => {
+      gyro.textContent = `Gyroscope (DeviceOrientation) - Alpha: ${event.alpha?.toFixed(2)}, Beta: ${event.beta?.toFixed(2)}, Gamma: ${event.gamma?.toFixed(2)}`;
+    });
+  } else {
+    gyro.textContent = "Twoje urządzenie nie obsługuje DeviceOrientationEvent.";
+  }
+}
+</script>
 </body>
 </html>
 
