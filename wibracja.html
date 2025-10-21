@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wibracja przycisku</title>
+</head>
+<body>
+  <h1>Wibracja telefonu</h1>
+  <button id="vibrateBtn">Wibruj</button>
+
+  <script>
+    const btn = document.getElementById('vibrateBtn');
+
+    btn.addEventListener('click', () => {
+      if ("vibrate" in navigator) {
+        navigator.vibrate(500);
+      } else {
+        alert("Twoje urządzenie nie obsługuje wibracji.");
+      }
+    });
+  </script>
+</body>
+</html>
