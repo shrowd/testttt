@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>lab3</title>
+</head>
+<body onload="fun()">
+  <h1>Współrzędne</h1>
+  <p id="text"></p>
+
+  <script>
+    function fun() {
+      const text = document.getElementById("text");
+
+      navigator.geolocation.getCurrentPosition(
+        (pozycja) => {
+          const latitude = pozycja.coords.latitude;
+          const longitude = pozycja.coords.longitude;
+
+          text.textContent = "Szerokość: " + latitude + ", Długość: " + longitude;
+        },
+      );
+    }
+  </script>
+</body>
+</html>
+
