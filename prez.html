@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obróć ekran i fullscreen</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: transform 0.5s ease;
+  }
+
+  .rotated {
+    transform: rotate(90deg);
+  }
+
+  button {
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<button id="rotateFullscreenBtn">Obróć i Fullscreen</button>
+
+<script>
+const button = document.getElementById('rotateFullscreenBtn');
+button.addEventListener('click', async () => {
+    // Obrót ekranu
+    document.body.classList.toggle('rotated');
+
+    // Tryb fullscreen
+    if (!document.fullscreenElement) {
+        try {
+            await document.documentElement.requestFullscreen();
+        } catch (err) {
+            console.error(`Błąd fullscreen: ${err.message}`);
+        }
+    }
+});
+</script>
+
+</body>
+</html>
