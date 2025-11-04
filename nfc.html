@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Prosty skaner NFC</title>
+</head>
+<body>
+  <h3>Prosty skaner NFC</h3>
+  <pre id="log">Oczekiwanie na tag...</pre>
+
+  <script>
+    if ('NDEFReader' in window) {
+      const ndef = new NDEFReader();
+      ndef.scan().then(() => {
+        document.getElementById('log').textContent = "Skanowanie włączone – zbliż tag NFC";
+        ndef.onreading = event => {
+          const decoder = new TextDecoder();
+          let text = "";
+          for (const record of event.message.records) {
+            text += decoder.decode(record.data) + "\n";
+          }
+          document.getElementById('log').textContent = "Odczytano tag:\n" + text;
+        };
+      }).catch(err => {
+        document.getElementById('log').textContent = "Błąd: " + err;
+      });
+    } else {
+      document.getElementById('log').textContent = "Web NFC nieobsługiwane w tej przeglądarce.";
+    }
+  </script>
+</body>
+</html>
