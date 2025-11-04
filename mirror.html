@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      transform: scaleX(-1); 
+    }
+  </style>
+</head>
+<body>
+  <video id="mirror" autoplay playsinline></video>
+
+  <script>
+    async function startMirror() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user" },
+          audio: false
+        });
+        document.getElementById('mirror').srcObject = stream;
+      } catch (err) {
+        alert('Nie udało się włączyć kamery: ' + err.message);
+      }
+    }
+    startMirror();
+  </script>
+</body>
+</html>
