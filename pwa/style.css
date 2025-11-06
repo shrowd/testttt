@@ -1,0 +1,43 @@
+:root {
+  --primary: #007bff;
+  --bg: #f8f9fa;
+  --text: #222;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  text-align: center;
+}
+
+main {
+  padding: 1em;
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin: 0.5em 0;
+}
+
+p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+@media (min-width: 600px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+}
