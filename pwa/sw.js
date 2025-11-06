@@ -1,11 +1,11 @@
-const cacheName = 'site-cache-v1'
+const cacheName = 'site-cache-v1';
 const assetsToCache = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './manifest.json'
-]
+];
 
 self.addEventListener('install', event => {
   console.log('[Service Worker] Install');
